@@ -11,18 +11,19 @@ t_video = 1/(frec_video); %tiempo muestreo video
 
 ejeXvideo = 0 : t_video : ((video_length-1)*t_video);
 
-[b, a] = butter( 5, [0.5/frec_video , 10/frec_video]);
+[b, a] = butter( 1, [0.5/frec_video , 10/frec_video]);
 
 %f = linspace(-frec_video/2, frec_video/2, video_length);
 
 figure;
-subplot(2,1,1);
-plot(abs([b,a]));
-subplot(2,1,2);
-plot(angle([b,a]));
+freqz(b,a);
+%subplot(2,1,1);
+%plot(abs([b,a]));
+%subplot(2,1,2);
+%plot(angle([b,a]));
 %xlabel('t [s]');
 %ylabel('brillo [dB]');
 %title('Titulo');
-print -djpg diagrama_filtro_cardiometro.jpg; %Octave
+print -djpg imagenes/punto_4_diagrama_filtro_cardiometro.jpg; %Octave
 grid minor;
 

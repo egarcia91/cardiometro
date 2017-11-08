@@ -5,21 +5,40 @@ load intensidad_RGB.mat; % brillo, 1 es R, 2 es G, 3 es B.
 video_length = length(brillo);
 
 frec_video = 29.37; %frecuencia muestreo video
+t_video = 1/(frec_video); %tiempo muestreo video
 
-DFT_senial_roja = fftshift(abs(fft(brillo(:,1))));
-DFT_senial_verde = fftshift(abs(fft(brillo(:,2))));
-DFT_senial_azul = fftshift(abs(fft(brillo(:,3))));
-
-f = linspace(-frec_video/2, frec_video/2, video_length);
+ejeXvideo = 0 : t_video : ((video_length-1)*t_video);
 
 figure;
-plot( f, DFT_senial_roja, 'r');
-hold on;
-plot( f, DFT_senial_verde, 'g');
-plot( f, DFT_senial_azul, 'b');
-xlabel('F [Hz]');
-ylabel('intensidad [modulo]');
-title('FFT de las seniales');
-print -djpg fft_cardiometro.jpg; %Octave
+subplot(4, 1, 1);
+plot( ejeXvideo, brillo(:, 2), 'g');
+ylabel('brillo [dB]');
+xlim([2 20]);
+ylim([-1e+07 1e+07]);
+%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
+title('Senial G');
+
+subplot(4, 1, 2);
+plot( ejeXvideo, brillo(:, 2), 'g');
+ylabel('brillo [dB]');
+xlim([20 40]);
+ylim([-1e+07 1e+07]);
+%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
+
+subplot(4, 1, 3);
+plot( ejeXvideo, brillo(:, 2), 'g');
+ylabel('brillo [dB]');
+xlim([40 60]);
+ylim([-1e+07 1e+07]);
+%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
+
+subplot(4, 1, 4);
+plot( ejeXvideo, brillo(:, 2), 'g');
+xlabel('t [s]');
+ylabel('brillo [dB]');
+xlim([60 80]);
+ylim([-1e+07 1e+07]);
+%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
+print -djpg imagenes/punto_2_G_zoom_cardiometro.jpg; %Octave
 grid minor;
- 
+

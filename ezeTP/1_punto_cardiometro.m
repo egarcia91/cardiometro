@@ -18,6 +18,17 @@ xlabel('t [s]');
 ylabel('brillo [dB]');
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 title('Seniales R G B');
-print -djpg imagen_cardiometro.jpg; %Octave
+print -djpg imagenes/punto_1_RGB_cardiometro.jpg; %Octave
+grid minor;
+
+figure;
+plot( ejeXvideo, brillo(:, 2), 'g');
+xlabel('t [s]');
+ylabel('brillo [dB]');
+xlim([5 80]);
+ylim([-1e+07 1e+07]);
+%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
+title('Senial G');
+print -djpg imagenes/punto_1_G_cardiometro.jpg; %Octave
 grid minor;
 
