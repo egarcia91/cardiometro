@@ -13,9 +13,9 @@ figure;
 subplot(4, 1, 1);
 plot( ejeXvideo, brillo(:, 2), 'g');
 ylabel('brillo [dB]');
-xlim([2 20]);
+xlim([1.5 20]);
 ylim([-1e+07 1e+07]);
-%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
+legend('18 pulsos');
 title('Senial G');
 
 subplot(4, 1, 2);
@@ -23,6 +23,7 @@ plot( ejeXvideo, brillo(:, 2), 'g');
 ylabel('brillo [dB]');
 xlim([20 40]);
 ylim([-1e+07 1e+07]);
+legend('22 pulsos');
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 
 subplot(4, 1, 3);
@@ -30,6 +31,7 @@ plot( ejeXvideo, brillo(:, 2), 'g');
 ylabel('brillo [dB]');
 xlim([40 60]);
 ylim([-1e+07 1e+07]);
+legend('28 pulsos');
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 
 subplot(4, 1, 4);
@@ -38,6 +40,7 @@ xlabel('t [s]');
 ylabel('brillo [dB]');
 xlim([60 80]);
 ylim([-1e+07 1e+07]);
+legend('32 pulsos');
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 print -djpg imagenes/punto_2_G_zoom_cardiometro.jpg; %Octave
 grid minor;
