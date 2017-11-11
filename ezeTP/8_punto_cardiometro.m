@@ -30,6 +30,7 @@ filtrado = filter(b, a, brillo(:,2));
 Fs = 1000;
 step = ceil(20*Fs/1000);
 window = ceil(100*Fs/1000);
+%Hamming 128 puntos
 
 figure;
 
