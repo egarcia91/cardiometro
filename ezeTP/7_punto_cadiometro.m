@@ -17,20 +17,44 @@ ida_vuelta = filtfilt(b, a, brillo(:,2));
 filtrado = filter(b, a, brillo(:,2));
 
 figure;
-%subplot(3, 1, 1);
+
+subplot(3, 1, 1);
+title('Senial filtro ida y vuelta');
+plot(ejeXvideo, brillo(:,2), 'g');
+ylabel('brillo [dB]');
+hold on;
+%subplot(3, 1, 2);
+plot(ejeXvideo, filtrado, 'b');
+%subplot(3, 1, 3);
+plot(ejeXvideo, ida_vuelta, 'k');
+xlim([2 30]);
+ylim([-1e+07 1e+07]);
+
+subplot(3, 1, 2);
+plot(ejeXvideo, brillo(:,2), 'g');
+ylabel('brillo [dB]');
+hold on;
+%subplot(3, 1, 2);
+plot(ejeXvideo, filtrado, 'b');
+%subplot(3, 1, 3);
+plot(ejeXvideo, ida_vuelta, 'k');
+xlim([30 60]);
+ylim([-1e+07 1e+07]);
+
+subplot(3, 1, 3);
 plot(ejeXvideo, brillo(:,2), 'g');
 hold on;
 %subplot(3, 1, 2);
 plot(ejeXvideo, filtrado, 'b');
 %subplot(3, 1, 3);
 plot(ejeXvideo, ida_vuelta, 'k');
-xlim([15  20]);
+xlim([60 90]);
+ylim([-1e+07 1e+07]);
 %%plot( ejeXvideo, brillo(:,2));
-%xlabel('t [s]');
-%ylabel('brillo [dB]');
+xlabel('t [s]');
+ylabel('brillo [dB]');
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
-%title('Titulo');
-print -djpg filtro_ida_vuelta_cardiometro.jpg; %Octave
+print -djpg imagenes/punto_7_filtro_ida_vuelta_cardiometro.jpg; %Octave
 grid minor;
 
 %DFT_senial_filtrada = fftshift(abs(fft(filtrado)));

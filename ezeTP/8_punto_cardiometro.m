@@ -27,18 +27,22 @@ filtrado = filter(b, a, brillo(:,2));
 
 %yts = specgram(brillo, 256, 1000, [], 200);
 
-Fs = 1000;
-step = ceil(20*Fs/1000);
-window = ceil(100*Fs/1000);
+step = ceil(20*frec_video/1000);
+%window = hamming(100*frec_video/1000);
+window = hamming(128);
 %Hamming 128 puntos
 
 figure;
 
 subplot(2,1,1);
-specgram(brillo(:,2), 2^nextpow2(window), Fs, window, window - step);
+specgram(brillo(:,2), 2^nextpow2(128), frec_video, window, window - step);
+ylim([0  8]);
+title('Senial Original');
 
 subplot(2,1,2);
-specgram(ida_vuelta, 2^nextpow2(window), Fs, window, window - step);
+specgram(ida_vuelta, 2^nextpow2(128), frec_video, window, window - step);
+ylim([0  8]);
+title('Senial Filtrada');
 
 %%ylim([10^-6  1]);
 %%hold on;
@@ -50,6 +54,6 @@ specgram(ida_vuelta, 2^nextpow2(window), Fs, window, window - step);
 %ylabel('brillo [dB]');
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 %title('Titulo');
-print -djpg espectograma_cardiometro.jpg; %Octave
+print -djpg imagenes/punto_8_espectograma_cardiometro.jpg; %Octave
 grid minor;
  
