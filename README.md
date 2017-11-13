@@ -19,4 +19,4 @@ Progreso de NicoP<br />
 ![Progress](http://progressed.io/bar/0)<br />
 <br />
 Progreso de Juan<br />
-![Progress](http://progressed.io/bar/0)<br />
+![Progress](http://progressed.io/bar/63)<br />
