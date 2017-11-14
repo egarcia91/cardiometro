@@ -43,7 +43,7 @@ title('Senial Original');
 subplot(2,1,2);
 %specgram(ida_vuelta, 2^nextpow2(128), frec_video, window, window - step);
 specgram(ida_vuelta, 2^nextpow2(128), frec_video, window, 127);
-%caxis([-1000 1000]);
+%caxis([0 70]);
 ylim([0  8]);
 title('Senial Filtrada');
 

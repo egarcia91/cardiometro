@@ -13,6 +13,7 @@ ejeXvideo = 0 : t_video : ((video_length-1)*t_video);
 
 [b, a] = butter( 5, [(0.5/frec_video) , (10/frec_video)]);
 
+%Disenia el filtro para una senial compuesta por un uno y todo los demas ceros escalado por Fs
 figure;
 freqz(b, a, 512, "whole", frec_video);
 print -djpg imagenes/punto_4_diagrama_filtro_cardiometro.jpg; %Octave

@@ -15,47 +15,92 @@ ejeXvideo = 0 : t_video : ((video_length-1)*t_video);
 
 ida_vuelta = filtfilt(b, a, brillo(:,2));
 %filtrado = filter(b, a, brillo(:,2));
+
+figure;
+title('Senial filtro ida y vuelta');
+subplot(3,1,1);
+ylabel('brillo [dB]');
+plot(ejeXvideo, ida_vuelta, 'k');
+xlim([3 30]);
+
+subplot(3,1,2);
+ylabel('brillo [dB]');
+plot(ejeXvideo, ida_vuelta, 'k');
+xlim([30 60]);
+
+subplot(3,1,3);
+ylabel('brillo [dB]');
+plot(ejeXvideo, ida_vuelta, 'k');
+xlim([60 90]);
+
+xlabel('t [s]');
+print -djpg imagenes/punto_10_a_cardiometro.jpg; %Octave
+grid minor;
+
 filtrado = filter([-2 -1 0 1 2], 1, ida_vuelta);
 
 figure;
-
-subplot(3, 1, 1);
-title('Senial filtro ida y vuelta');
-%plot(ejeXvideo, brillo(:,2), 'g');
+title('Senial filtro con derivada');
+subplot(3,1,1);
 ylabel('brillo [dB]');
-%hold on;
-%subplot(3, 1, 2);
 plot(ejeXvideo, filtrado, 'b');
-%subplot(3, 1, 3);
-%plot(ejeXvideo, ida_vuelta, 'k');
-xlim([2 30]);
-%ylim([-1e+07 1e+07]);
+xlim([3 30]);
 
-subplot(3, 1, 2);
-%plot(ejeXvideo, brillo(:,2), 'g');
+subplot(3,1,2);
 ylabel('brillo [dB]');
-%hold on;
-%subplot(3, 1, 2);
 plot(ejeXvideo, filtrado, 'b');
-%subplot(3, 1, 3);
-%plot(ejeXvideo, ida_vuelta, 'k');
 xlim([30 60]);
-%ylim([-1e+07 1e+07]);
 
-subplot(3, 1, 3);
-%plot(ejeXvideo, brillo(:,2), 'g');
-%hold on;
-%subplot(3, 1, 2);
-plot(ejeXvideo, filtrado, 'b');
-%subplot(3, 1, 3);
-%plot(ejeXvideo, ida_vuelta, 'k');
-xlim([60 90]);
-%ylim([-1e+07 1e+07]);
-%%plot( ejeXvideo, brillo(:,2));
-xlabel('t [s]');
+subplot(3,1,3);
 ylabel('brillo [dB]');
-%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
-print -djpg imagenes/punto_10_filtro_ida_vuelta_cardiometro.jpg; %Octave
+plot(ejeXvideo, filtrado, 'b');
+xlim([60 90]);
+xlabel('t [s]');
+print -djpg imagenes/punto_10_b_cardiometro.jpg; %Octave
+grid minor;
+
+%length_Ma = video_length;
+length_Ma = 80;
+ma = ones(1,length_Ma)./(length_Ma); %Moving Average
+%filtMovingAverage = filter(ma, 1, ida_vuelta.^2);
+%ida_vuelta(end/2:end) =  ida_vuelta(end/2:end)*10;
+%filtMovingAverage = conv(ma, ida_vuelta.^2); %%Enunciado dice con ida y vuelta pero con filtrado es con la que funciona
+filtMovingAverage = conv(ma, filtrado.^2);
+filtMA_length = length(filtMovingAverage);
+puntos_descarte = (length_Ma)/2;
+
+filtMovingAverage = filtMovingAverage(puntos_descarte : (filtMA_length-puntos_descarte));
+
+final = filtrado ./ sqrt(filtMovingAverage);
+
+umbral = ones(1,video_length)*0.35; %Moving Average
+
+figure;
+title('Senial filtro con Moving Average');
+%legend('Moving Average','Umbral','Senial derivada normalizada');
+subplot(3,1,1);
+plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+hold on;
+plot(ejeXvideo, umbral, 'r');
+plot(ejeXvideo, final/max(final), 'g');
+xlim([3 30]);
+
+subplot(3,1,2);
+plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+hold on;
+plot(ejeXvideo, umbral, 'r');
+plot(ejeXvideo, final/max(final), 'g');
+xlim([30 60]);
+
+subplot(3,1,3);
+plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+hold on;
+plot(ejeXvideo, umbral, 'r');
+plot(ejeXvideo, final/max(final), 'g');
+xlim([60 90]);
+
+xlabel('t [s]');
+print -djpg imagenes/punto_10_c_cardiometro.jpg; %Octave
 grid minor;
 
 %DFT_senial_filtrada = fftshift(abs(fft(filtrado)));
