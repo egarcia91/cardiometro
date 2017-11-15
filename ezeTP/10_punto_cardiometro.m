@@ -73,7 +73,8 @@ filtMovingAverage = filtMovingAverage(puntos_descarte : (filtMA_length-puntos_de
 
 final = filtrado ./ sqrt(filtMovingAverage);
 
-umbral = ones(1,video_length)*0.35; %Moving Average
+umbral_value = 0.35;
+umbral = ones(1,video_length)*umbral_value; %Moving Average
 
 figure;
 title('Senial filtro con Moving Average');
@@ -115,3 +116,41 @@ grid minor;
 %print -djpg fft_filtrado_cardiometro.jpg; %Octave
 %grid minor;
  
+max_signal = max(final)
+umbral_signal = umbral_value*max_signal
+
+%picos = [1, 500, 900];
+picos = find(final >= max_signal*0.8 & final <= max_signal*0.85)
+
+%figure;
+%title('Senial para busqueda de picos con umbral 0.35');
+%%legend('Moving Average','Umbral','Senial derivada normalizada');
+%subplot(3,1,1);
+%plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+%hold on;
+%plot(ejeXvideo, umbral, 'r');
+%plot(ejeXvideo, final/max(final), 'g');
+%plot(ejeXvideo(picos),final(picos)/max(final), 'o')
+%xlim([3 30]);
+%
+%subplot(3,1,2);
+%plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+%hold on;
+%plot(ejeXvideo, umbral, 'r');
+%plot(ejeXvideo, final/max(final), 'g');
+%plot(ejeXvideo(picos),final(picos)/max(final), 'o')
+%xlim([30 60]);
+%
+%subplot(3,1,3);
+%plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+%hold on;
+%plot(ejeXvideo, umbral, 'r');
+%plot(ejeXvideo, final/max(final), 'g');
+%plot(ejeXvideo(picos),final(picos)/max(final), 'o')
+%xlim([60 90]);
+%
+%xlabel('t [s]');
+%print -djpg imagenes/punto_10_d_cardiometro.jpg; %Octave
+%grid minor;
+
+

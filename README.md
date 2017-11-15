@@ -7,7 +7,7 @@ Así nos ahorramos pensar en que lenguaje lo hace uno y el otro etc...<br />
 Pero lo bueno es que todos podemos ver el código y ayudarnos con eso.<br />
 
 Progreso de eze<br />
-![Progress](http://progressed.io/bar/52)<br />
+![Progress](http://progressed.io/bar/56)<br />
 <br />
 Progreso de Nati<br />
 ![Progress](http://progressed.io/bar/0)<br />
