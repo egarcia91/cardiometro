@@ -11,7 +11,7 @@ t_video = 1/(frec_video); %tiempo muestreo video
 
 ejeXvideo = 0 : t_video : ((video_length-1)*t_video);
 
-[b, a] = butter( 5, [(0.5/frec_video) , (10/frec_video)]);
+[b, a] = butter( 4, [0.4*2/frec_video , 10*2/frec_video]); %FiltroPincripal
 
 filtrado = filter(b, a, brillo(:,2));
 
