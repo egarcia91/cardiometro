@@ -141,75 +141,64 @@ respuestaImpulso(video_length*4) = 0;
 
 DFT_respuestaImpulso = 20*log(fftshift(abs(fft(respuestaImpulso))));
 
-respuestaSobreMuestreo = filtfilt(b, a, sobreMuestreo);
-DFT_respuestaSobreMuestreo = fftshift(abs(fft(respuestaSobreMuestreo)));
-
 figure;
 
+%subplot(2,1,1);
 plot( f, DFT_sobre_muestreo, 'b');
 hold on;
-plot( f, DFT_respuestaSobreMuestreo, 'g');
-plot( f, DFT_respuestaImpulso, 'k');
-xlabel('f [Hz]');
-ylabel('intensidad [modulo], Modulo [dB]');
-title('FFT del sobremuestreo y el filtro');
-legend('FFT senial sobremuestreada','FFT senial filtrada','Filtro');
+plot( f, DFT_respuestaImpulso, 'g');
+%xlabel('f [Hz]');
+%ylabel('intensidad [modulo]');
+title('FFT del sobremuestreo');
+%ylim([0 2e+09]);
+
+%subplot(2,1,2);
+%plot( f, DFT_sobre_muestreo, 'b');
+%xlabel('f [Hz]');
+%ylabel('intensidad [modulo]');
+%ylim([0 2e+09]);
+%xlim([0 5]);
 
 print -djpg imagenes/punto_10_d_fft_cardiometro.jpg; %Octave
 grid minor;
 
-figure;
-
-subplot(2,1,1);
-plot( ejeXsobreMuestreoVideo, respuestaSobreMuestreo, 'g');
-xlim([60 120]);
-xlabel('tiempo [4*s]');
-title('Comparacion de seniales');
-
-subplot(2,1,2);
-plot(ejeXvideo, final, 'k');
-xlim([15 30]);
-xlabel('tiempo [s]');
-%legend('FFT senial sobremuestreada','FFT senial filtrada','Filtro');
-
-print -djpg imagenes/punto_10_d_filtrado_sobremuestreo_cardiometro.jpg; %Octave
-grid minor;
-
-%% 10 e.
-max_signal = max(respuestaSobreMuestreo);
-tolerancia = 0.08;
-umbral_signal = umbral_value*max_signal;
-
-umbral = ones(1,video_length*4)*umbral_value; %Umbral
-%picos = [1, 500, 900];
-picos = find(respuestaSobreMuestreo >= (umbral_signal*(1-tolerancia)) & respuestaSobreMuestreo <= (umbral_signal*(1+tolerancia)));
-
-figure;
-title('Senial para busqueda de picos con umbral 0.7');
-%legend('Moving Average','Umbral','Senial derivada normalizada');
-subplot(3,1,1);
-plot(ejeXsobreMuestreoVideo, umbral, 'r');
-hold on;
-plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
-plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
-xlim([3 120]);
-
-subplot(3,1,2);
-plot(ejeXsobreMuestreoVideo, umbral, 'r');
-hold on;
-plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
-plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
-xlim([120 240]);
-
-subplot(3,1,3);
-plot(ejeXsobreMuestreoVideo, umbral, 'r');
-hold on;
-plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
-plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
-xlim([240 360]);
-
-xlabel('t [4*s]');
-print -djpg imagenes/punto_10_d_mas_definicion_cardiometro.jpg; %Octave
-grid minor;
+%%% 10 e.
+%max_signal = max(final);
+%tolerancia = 0.1;
+%umbral_signal = umbral_value*max_signal;
+%
+%%picos = [1, 500, 900];
+%picos = find(final >= (umbral_signal*(1-tolerancia)) & final <= (umbral_signal*(1+tolerancia)));
+%
+%figure;
+%title('Senial para busqueda de picos con umbral 0.7');
+%%legend('Moving Average','Umbral','Senial derivada normalizada');
+%subplot(3,1,1);
+%plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+%hold on;
+%plot(ejeXvideo, umbral, 'r');
+%plot(ejeXvideo, final/max(final), 'g');
+%plot(ejeXvideo(picos),final(picos)/max(final), 'o')
+%xlim([3 30]);
+%
+%subplot(3,1,2);
+%plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+%hold on;
+%plot(ejeXvideo, umbral, 'r');
+%plot(ejeXvideo, final/max(final), 'g');
+%plot(ejeXvideo(picos),final(picos)/max(final), 'o')
+%xlim([30 60]);
+%
+%subplot(3,1,3);
+%plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
+%hold on;
+%plot(ejeXvideo, umbral, 'r');
+%plot(ejeXvideo, final/max(final), 'g');
+%plot(ejeXvideo(picos),final(picos)/max(final), 'o')
+%xlim([60 90]);
+%
+%xlabel('t [s]');
+%print -djpg imagenes/punto_10_d_cardiometro.jpg; %Octave
+%grid minor;
 
 
