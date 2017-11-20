@@ -1,0 +1,84 @@
+\section{Enunciado}
+\label{sec:enun}
+\textbf{Detección de latidos cardíacos.}
+\textbf{1.} Cargar el archivo intensidad_RGB.mat y visualizar la señal RGB en
+superposición (3 canales). Elija alguno de los 3 canales que, según su criterio, posea
+la señal más útil a los efectos de analizar la dinámica de los latidos y utilícelo para
+realizar los puntos siguientes.\\
+\textbf{2.} Del gráfico del punto anterior, estimar aproximadamente los latidos por minuto
+(LPM). Identifique el momento a partir del cual la frecuencia cardiaca comienza a
+incrementarse, y en cuánto se incrementa.\\
+\textbf{3.} Rehacer el punto anterior, pero utilizando DFT. ¿Puede en este caso identificar
+cuándo se da el cambio de LPM?\\
+\textbf{4.} Diseñar un filtro pasa-banda tipo Butterworth con banda de paso entre 0.5 Hz y 10
+Hz. Graficar respuesta en frecuencia (módulo y fase), diagrama de polos y ceros y
+respuesta al impulso (sugerencia: usar las funciones butter y fvtool de Matlab).\\
+¿Qué papel juega el orden del filtro seleccionado en su diseño?\\
+\textbf{5.} Filtrar la señal FPG utilizando el filtro diseñado en el punto anterior mediante la
+función filter. Grafique en superposición la señal original con la filtrada y
+comente acerca de:\\
+a. Remoción de derivas\\
+b. Cambios en la forma de la señal\\
+c. Retardo de la señal filtrada respecto de la original\\
+\textbf{6.} A partir de la respuesta en fase del filtro, calcule su retardo temporal y compare con
+lo observado en el punto 5c.\\
+\textbf{7.} Implementar un filtrado IIR ida y vuelta para anular la fase del filtro (puede utilizar
+la función filtfilt de Matlab). Justificar teóricamente el funcionamiento de este
+tipo de filtrado y cuál resulta su ventaja. Filtrar nuevamente la señal FPG y comparar
+el resultado con lo obtenido en el punto anterior, particularmente en la forma de la
+señal y su retardo.\\
+\textbf{8.} Realizar un espectrograma de la señal antes y después de filtrar, mediante la función
+spectrogram de Matlab (sugerencia: utilice la función caxis para saturar los
+colores del espectrograma y lograr una mejor visualización). Justificar la longitud de
+ventana elegida y comente acerca del resultado obtenido, relacionándolo con los
+puntos 2 y 3. Calcule la resolución en frecuencia de la ventana mediante DFT en
+Matlab. ¿Cómo haría para obtener mejor resolución en frecuencia y qué se pierde con
+esto?\\
+\textbf{9.} Identificar en el espectrograma la zona donde el pulso se acelera. Observar con
+detenimiento los componentes de frecuencia que posee la señal y justificar el origen
+de cada uno (para esto último, necesitará hacer uso de la señal audio_det.mat
+para explicar todos los componentes observados).\\
+\textbf{10.} Realizar un detector automático de latidos. El mismo debe tomar como entrada la
+señal FPG y producir como salida un vector de tiempos, donde cada tiempo
+corresponde a la detección de un latido en la señal. Para esto, se sugiere implementar
+los siguientes pasos:\\
+a. Filtrado pasa-banda de la señal, utilizando el filtrado del ejercicio 7.\\
+b. Filtro de derivada, implementado con un filtro FIR h(n)=[-2 -1 0 1 2].\\
+c. Normalización con energía instantánea: primero calcular la energía
+instantánea de la señal mediante un filtro MA1 de la señal del punto 10a
+elevada al cuadrado; luego dividir la señal del punto b por el vector obtenido.
+Esto tiene como objeto reducir el impacto de la presión sanguínea sobre el
+nivel de señal.\\
+d. Sobre-muestreo en un factor 4 para obtener mayor resolución temporal:
+implemente el sobre-muestreo utilizando la función upsample y diseñe un
+filtro interpolador FIR utilizando la herramienta fdatool de Matlab.
+Grafique: respuesta en frecuencia del filtro en módulo y fase, y señal original
+y sobre-muestreada en superposición.\\
+e. Detector de picos mediante umbral (puede definir como umbral un valor
+arbitrario).\\
+f. Gráfico en superposición de la señal con las marcas de los picos detectados.
+Sugerencia para el punto e: en general, un pico en la señal producirá la detección de
+múltiples muestras por encima del umbral. Para reducirlas a sólo una, puede utilizar
+la función diff para evaluar la primera derivada sobre el vector de muestras
+detectadas (la cual contiene sólo unos y ceros), quedándose solo con las muestras
+positivas que resulten y buscando, para cada una de estas, la posición del máximo
+inmediato de la señal original dentro de un intervalo pre-establecido (este deberá
+contener mínimamente a la duración aproximada de los picos).\\
+\textbf{11.} En base a los resultados del punto anterior, calcule y grafique el intervalo temporal
+instantáneo entre latidos (IBI: inter-beat interval) y los LPM instantáneos.\\
+\textbf{12.} Opcional. Mejorar el detector de latidos aplicando las reglas de [5]:\\
+a. Establecer como regla que, si dos latidos se detectaron con una separación
+temporal menor a 200ms, sobrevive sólo aquel que corresponda al pico de la
+señal mayor entre ambos.\\
+b. Establecer como regla que si el IBI instantáneo aumenta repentinamente en al
+menos 1.5 veces entre muestras consecutivas, puede haberse perdido la
+detección de un latido. Cuando este sea el caso, realice una nueva detección
+de picos dentro del intervalo correspondiente, utilizando un umbral la mitad
+del nominal. Si de esta manera se halla un nuevo pico, distanciado al menos
+360ms de la detección precedente, entonces clasificarlo como latido.\\
+\textbf{13.} Opcional. Obtener su propia señal FPG mediante la cámara de su celular y aplicar los
+análisis y algoritmos desarrollados a esta señal. Para esto, realice una grabación tal
+como se explicó en la sección 1 y utilice los scripts auxiliares de Matlab para extraer
+los archivos de intensidades y audio del video. Nota: para un mejor resultado en la
+señal registrada, utilizar el dedo índice aplicando una leve presión sobre la lente,
+evitando resultar excesivamente suave o fuerte.\\

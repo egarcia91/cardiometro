@@ -1,0 +1,44 @@
+\documentclass[a4paper]{clase_fiuba}
+\newcommand{\codigoMateria}{86.05}
+\newcommand{\nombreMateria}{Señales y Sistemas}
+
+\newcommand{\numeroTP}{1}
+\newcommand{\descripcionTP}{Detección de latidos cardíacos}
+\newcommand{\tituloTP}{Trabajo Práctico n°1}
+\newcommand{\facultad}{Facultad de Ingeniería}
+\newcommand{\universidad}{Universidad de Buenos Aires}
+\newcommand{\cuatrimestre}{2° Cuatrimestre de 2017}
+
+\usepackage{estilo_fiuba}
+
+% ---------------------------------------------------------------
+% Inicio documento
+\begin{document}
+\nocite{*}
+% ---------------------------------------------------------------
+% Caratula e índice
+\include{cover}
+\thispagestyle{empty}
+\clearpage
+
+\pagenumbering{Roman}
+
+\tableofcontents
+
+% ---------------------------------------------------------------
+% Cuerpo del informe.
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\newpage
+\input{1objetivos}
+%\newpage
+\input{2enun}
+\newpage
+\input{3desar}
+\newpage
+\input{4conclu}
+\input{5apend}
+
+\end{document}
+
+

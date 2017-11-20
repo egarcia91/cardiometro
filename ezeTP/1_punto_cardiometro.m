@@ -15,20 +15,18 @@ hold on;
 plot( ejeXvideo, brillo(:, 2), 'g');
 plot( ejeXvideo, brillo(:, 3), 'b');
 xlabel('t [s]');
-ylabel('brillo [dB]');
+ylabel('brillo');
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
-title('Seniales R G B');
 print -djpg imagenes/punto_1_RGB_cardiometro.jpg; %Octave
 grid minor;
 
 figure;
 plot( ejeXvideo, brillo(:, 2), 'g');
 xlabel('t [s]');
-ylabel('brillo [dB]');
+ylabel('brillo');
 xlim([5 80]);
 ylim([-1e+07 1e+07]);
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
-title('Senial G');
 print -djpg imagenes/punto_1_G_cardiometro.jpg; %Octave
 grid minor;
 
