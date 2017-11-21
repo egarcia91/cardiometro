@@ -73,7 +73,7 @@ filtMovingAverage = filtMovingAverage(puntos_descarte : (filtMA_length-puntos_de
 
 final = filtrado ./ sqrt(filtMovingAverage);
 
-umbral_value = 0.7;
+umbral_value = 0.65;
 umbral = ones(1,video_length)*umbral_value; %Moving Average
 %
 %figure;
@@ -177,12 +177,19 @@ grid minor;
 
 %% 10 e.
 max_signal = max(respuestaSobreMuestreo);
-tolerancia = 0.08;
-umbral_signal = umbral_value*max_signal;
+umbralSignal = umbral_value*max_signal;
+
+puntosMayoresUmbral = respuestaSobreMuestreo > umbralSignal;
+derivadaMayoresUmbral = diff(puntosMayoresUmbral);
+
+intervalos = find(derivadaMayoresUmbral);
+
+picos = [];
+for (i = 1:2:length(intervalos))
+	picos((i+1)/2) = round((intervalos(i)+intervalos(i+1))/2);
+endfor
 
 umbral = ones(1,video_length*4)*umbral_value; %Umbral
-%picos = [1, 500, 900];
-picos = find(respuestaSobreMuestreo >= (umbral_signal*(1-tolerancia)) & respuestaSobreMuestreo <= (umbral_signal*(1+tolerancia)));
 
 figure;
 title('Senial para busqueda de picos con umbral 0.7');
