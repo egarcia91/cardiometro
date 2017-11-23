@@ -16,7 +16,7 @@ ejeXvideo = 0 : t_video : ((video_length-1)*t_video);
 
 %Diagrama polos y ceros
 figure;
-pzmap(tf(a,b));
+pzmap(tf(b,a));
 print -djpg imagenes/punto_4_diagrama_polos_ceros_cardiometro.jpg; %Octave
 grid minor;
 
