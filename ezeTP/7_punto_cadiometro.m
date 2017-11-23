@@ -19,9 +19,9 @@ filtrado = filter(b, a, brillo(:,2));
 figure;
 
 subplot(3, 1, 1);
-title('Senial filtro ida y vuelta');
+
 plot(ejeXvideo, brillo(:,2), 'g');
-ylabel('brillo [dB]');
+ylabel('brillo');
 hold on;
 %subplot(3, 1, 2);
 plot(ejeXvideo, filtrado, 'b');
@@ -30,9 +30,13 @@ plot(ejeXvideo, ida_vuelta, 'k');
 xlim([2 30]);
 ylim([-1e+07 1e+07]);
 
+title('Superposicion');
+legend({'Original','Filtrada','Ida y Vuelta'},'location','northeast');
+legend boxoff;
+
 subplot(3, 1, 2);
 plot(ejeXvideo, brillo(:,2), 'g');
-ylabel('brillo [dB]');
+ylabel('brillo');
 hold on;
 %subplot(3, 1, 2);
 plot(ejeXvideo, filtrado, 'b');
@@ -52,20 +56,6 @@ xlim([60 90]);
 ylim([-1e+07 1e+07]);
 %%plot( ejeXvideo, brillo(:,2));
 xlabel('t [s]');
-ylabel('brillo [dB]');
-%%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
+ylabel('brillo');
 print -djpg imagenes/punto_7_filtro_ida_vuelta_cardiometro.jpg; %Octave
 grid minor;
-
-%DFT_senial_filtrada = fftshift(abs(fft(filtrado)));
-%
-%f = linspace(-frec_video/2, frec_video/2, video_length);
-%
-%figure;
-%plot( f, DFT_senial_filtrada, 'g');
-%xlabel('F [Hz]');
-%ylabel('intensidad [modulo]');
-%title('DFT de las seniales');
-%print -djpg fft_filtrado_cardiometro.jpg; %Octave
-%grid minor;
- 

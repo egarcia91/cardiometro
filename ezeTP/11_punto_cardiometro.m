@@ -88,25 +88,27 @@ endfor
 
 ibi = [];
 for (i = 1:(length(picos)-1))
-	ibi(i) = picos(i+1)-picos(i);
+	ibi(i) = ejeXsobreMuestreoVideo(picos(i+1))-ejeXsobreMuestreoVideo(picos(i));
 endfor
 
-%figure;
-%plot(tiempoIbi,ibi, 'b');
-%ylabel('t [s]');
-%xlabel('t [s]');
-%title('IBI');
-%print -djpg imagenes/punto_11_ibi_cardiometro.jpg; %Octave
-%grid minor;
+figure;
+plot(tiempoIbi,ibi, 'b');
+ylabel('t [s]');
+xlabel('t [s]');
+xlim([2 90]);
+ylim([0.5 1.2]);
+title('IBI');
+print -djpg imagenes/punto_11_ibi_cardiometro.jpg; %Octave
+grid minor;
 
 tiempoTotal = ((video_length-1)*t_video)
 picosTotal = length(picos)
 
 lpmTotal = round((picosTotal/tiempoTotal)*60)
 
-lpmTotal20 = round((length(find((tiempoIbi<=20) == 1))/20)*60)
-lpmTotal2040 = round((length(find((tiempoIbi>=20 & tiempoIbi<=40) == 1))/20)*60)
-lpmTotal4060 = round((length(find((tiempoIbi>=40 & tiempoIbi<=60) == 1))/20)*60)
-lpmTotal6080 = round((length(find((tiempoIbi>=60 & tiempoIbi<=80) == 1))/20)*60)
-lpmTotal8090 = round((length(find((tiempoIbi>=80 & tiempoIbi<=90) == 1))/10)*60)
+lpmTotal20 = round((length(find((tiempoIbi<=20) == 1))/20)*60);
+lpmTotal2040 = round((length(find((tiempoIbi>=20 & tiempoIbi<=40) == 1))/20)*60);
+lpmTotal4060 = round((length(find((tiempoIbi>=40 & tiempoIbi<=60) == 1))/20)*60);
+lpmTotal6080 = round((length(find((tiempoIbi>=60 & tiempoIbi<=80) == 1))/20)*60);
+lpmTotal8090 = round((length(find((tiempoIbi>=80 & tiempoIbi<=90) == 1))/10)*60);
 
