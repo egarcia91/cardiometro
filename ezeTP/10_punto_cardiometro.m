@@ -15,23 +15,23 @@ ejeXvideo = 0 : t_video : ((video_length-1)*t_video);
 
 %% 10 a.
 ida_vuelta = filtfilt(b, a, brillo(:,2));
-%filtrado = filter(b, a, brillo(:,2));
+filtrado = filter(b, a, brillo(:,2));
 
 %figure;
-%title('Senial filtro ida y vuelta');
 %subplot(3,1,1);
-%ylabel('brillo [dB]');
-%plot(ejeXvideo, ida_vuelta, 'k');
+%plot(ejeXvideo, ida_vuelta, 'g');
+%ylabel('brillo');
 %xlim([3 30]);
+%title('Resultado filtro ida y vuelta');
 %
 %subplot(3,1,2);
-%ylabel('brillo [dB]');
-%plot(ejeXvideo, ida_vuelta, 'k');
+%plot(ejeXvideo, ida_vuelta, 'g');
+%ylabel('brillo');
 %xlim([30 60]);
 %
 %subplot(3,1,3);
-%ylabel('brillo [dB]');
-%plot(ejeXvideo, ida_vuelta, 'k');
+%plot(ejeXvideo, ida_vuelta, 'g');
+%ylabel('brillo');
 %xlim([60 90]);
 %
 %xlabel('t [s]');
@@ -42,20 +42,20 @@ ida_vuelta = filtfilt(b, a, brillo(:,2));
 filtrado = filter([-2 -1 0 1 2], 1, ida_vuelta);
 
 %figure;
-%title('Senial filtro con derivada');
 %subplot(3,1,1);
-%ylabel('brillo [dB]');
-%plot(ejeXvideo, filtrado, 'b');
+%plot(ejeXvideo, filtrado, 'g');
+%ylabel('derivada brillo');
+%title('Resultado filtro con derivada');
 %xlim([3 30]);
 %
 %subplot(3,1,2);
-%ylabel('brillo [dB]');
-%plot(ejeXvideo, filtrado, 'b');
+%plot(ejeXvideo, filtrado, 'g');
+%ylabel('derivada brillo');
 %xlim([30 60]);
 %
 %subplot(3,1,3);
-%ylabel('brillo [dB]');
-%plot(ejeXvideo, filtrado, 'b');
+%plot(ejeXvideo, filtrado, 'g');
+%ylabel('derivada brillo');
 %xlim([60 90]);
 %xlabel('t [s]');
 %print -djpg imagenes/punto_10_b_cardiometro.jpg; %Octave
@@ -75,15 +75,17 @@ final = filtrado ./ sqrt(filtMovingAverage);
 
 umbral_value = 0.65;
 umbral = ones(1,video_length)*umbral_value; %Moving Average
-%
+
 %figure;
-%title('Senial filtro con Moving Average');
-%%legend('Moving Average','Umbral','Senial derivada normalizada');
 %subplot(3,1,1);
 %plot(ejeXvideo, (filtMovingAverage)/max(filtMovingAverage), 'b');
 %hold on;
 %plot(ejeXvideo, umbral, 'r');
 %plot(ejeXvideo, final/max(final), 'g');
+%legend('Moving Average','Umbral','Derivada normalizada','location','south','Orientation','horizontal');
+%title('Resultado normalizada');
+%ylabel('brillo normalizado');
+%legend boxoff;
 %xlim([3 30]);
 %
 %subplot(3,1,2);
@@ -91,6 +93,7 @@ umbral = ones(1,video_length)*umbral_value; %Moving Average
 %hold on;
 %plot(ejeXvideo, umbral, 'r');
 %plot(ejeXvideo, final/max(final), 'g');
+%ylabel('brillo normalizado');
 %xlim([30 60]);
 %
 %subplot(3,1,3);
@@ -98,6 +101,7 @@ umbral = ones(1,video_length)*umbral_value; %Moving Average
 %hold on;
 %plot(ejeXvideo, umbral, 'r');
 %plot(ejeXvideo, final/max(final), 'g');
+%ylabel('brillo normalizado');
 %xlim([60 90]);
 %
 %xlabel('t [s]');
@@ -105,22 +109,25 @@ umbral = ones(1,video_length)*umbral_value; %Moving Average
 %grid minor;
 
 %% 10 d.
-ejeXsobreMuestreoVideo = 0 : t_video : (((video_length*4)-1)*t_video);
+ejeXsobreMuestreoVideo = 0 : t_video/4 : (((video_length)-(1/4))*t_video);
 sobreMuestreo = upsample(final,4);
 
 %figure;
-%title('Senial sobre muestreada');
 %%legend('Moving Average','Umbral','Senial derivada normalizada');
 %subplot(3,1,1);
-%plot(ejeXsobreMuestreoVideo, sobreMuestreo/max(sobreMuestreo), 'b');
+%plot(ejeXsobreMuestreoVideo, sobreMuestreo/max(sobreMuestreo), 'g');
+%ylabel('brillo');
+%title('Resultado sobremuestreo');
 %xlim([3 30]);
 %
 %subplot(3,1,2);
-%plot(ejeXsobreMuestreoVideo, sobreMuestreo/max(sobreMuestreo), 'b');
+%plot(ejeXsobreMuestreoVideo, sobreMuestreo/max(sobreMuestreo), 'g');
+%ylabel('brillo');
 %xlim([30 60]);
 %
 %subplot(3,1,3);
-%plot(ejeXsobreMuestreoVideo, sobreMuestreo/max(sobreMuestreo), 'b');
+%plot(ejeXsobreMuestreoVideo, sobreMuestreo/max(sobreMuestreo), 'g');
+%ylabel('brillo');
 %xlim([60 90]);
 %
 %xlabel('t [s]');
@@ -160,17 +167,15 @@ grid minor;
 
 figure;
 
-subplot(2,1,1);
-plot( ejeXsobreMuestreoVideo, respuestaSobreMuestreo, 'g');
-xlim([60 120]);
-xlabel('tiempo [4*s]');
-title('Comparacion de seniales');
-
-subplot(2,1,2);
-plot(ejeXvideo, final, 'k');
+plot( ejeXsobreMuestreoVideo, respuestaSobreMuestreo./max(respuestaSobreMuestreo), 'b');
+hold on;
+plot(ejeXvideo, final./max(final), 'g');
+title('Comparacion');
 xlim([15 30]);
+ylabel('brillo');
 xlabel('tiempo [s]');
-%legend('FFT senial sobremuestreada','FFT senial filtrada','Filtro');
+legend('Resultado sobremuestreada','Resultado sin sobremuestreo');
+legend boxoff;
 
 print -djpg imagenes/punto_10_d_filtrado_sobremuestreo_cardiometro.jpg; %Octave
 grid minor;
@@ -191,32 +196,32 @@ endfor
 
 umbral = ones(1,video_length*4)*umbral_value; %Umbral
 
-figure;
-title('Senial para busqueda de picos con umbral 0.7');
-%legend('Moving Average','Umbral','Senial derivada normalizada');
-subplot(3,1,1);
-plot(ejeXsobreMuestreoVideo, umbral, 'r');
-hold on;
-plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
-plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
-xlim([3 120]);
-
-subplot(3,1,2);
-plot(ejeXsobreMuestreoVideo, umbral, 'r');
-hold on;
-plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
-plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
-xlim([120 240]);
-
-subplot(3,1,3);
-plot(ejeXsobreMuestreoVideo, umbral, 'r');
-hold on;
-plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
-plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
-xlim([240 360]);
-
-xlabel('t [4*s]');
-print -djpg imagenes/punto_10_d_mas_definicion_cardiometro.jpg; %Octave
-grid minor;
+%figure;
+%title('Senial para busqueda de picos con umbral 0.7');
+%%legend('Moving Average','Umbral','Senial derivada normalizada');
+%subplot(3,1,1);
+%plot(ejeXsobreMuestreoVideo, umbral, 'r');
+%hold on;
+%plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
+%plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
+%xlim([3 120]);
+%
+%subplot(3,1,2);
+%plot(ejeXsobreMuestreoVideo, umbral, 'r');
+%hold on;
+%plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
+%plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
+%xlim([120 240]);
+%
+%subplot(3,1,3);
+%plot(ejeXsobreMuestreoVideo, umbral, 'r');
+%hold on;
+%plot(ejeXsobreMuestreoVideo, respuestaSobreMuestreo/max(respuestaSobreMuestreo), 'g');
+%plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSobreMuestreo), 'o');
+%xlim([240 360]);
+%
+%xlabel('t [4*s]');
+%print -djpg imagenes/punto_10_d_mas_definicion_cardiometro.jpg; %Octave
+%grid minor;
 
 
