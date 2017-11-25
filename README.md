@@ -7,10 +7,10 @@ Así nos ahorramos pensar en que lenguaje lo hace uno y el otro etc...<br />
 Pero lo bueno es que todos podemos ver el código y ayudarnos con eso.<br />
 
 Progreso de eze<br />
-![Progress](http://progressed.io/bar/98)<br />
+![Progress](http://progressed.io/bar/105)<br />
 <br />
 Progreso de Nati<br />
-![Progress](http://progressed.io/bar/0)<br />
+![Progress](http://progressed.io/bar/36)<br />
 <br />
 Progreso de NicoR<br />
 ![Progress](http://progressed.io/bar/0)<br />
@@ -19,4 +19,4 @@ Progreso de NicoP<br />
 ![Progress](http://progressed.io/bar/72)<br />
 <br />
 Progreso de Juan<br />
-![Progress](http://progressed.io/bar/63)<br />
+![Progress](http://progressed.io/bar/99)<br />
