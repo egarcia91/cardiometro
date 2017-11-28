@@ -16,7 +16,8 @@ ylabel('brillo');
 xlim([1.5 20]);
 ylim([-1e+07 1e+07]);
 legend('18 pulsos');
-%title('Senial G');
+legend boxoff;
+%title('Senal Verde conteo de pulsos');
 
 subplot(4, 1, 2);
 plot( ejeXvideo, brillo(:, 2), 'g');
@@ -24,6 +25,7 @@ ylabel('brillo');
 xlim([20 40]);
 ylim([-1e+07 1e+07]);
 legend('22 pulsos');
+legend boxoff;
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 
 subplot(4, 1, 3);
@@ -32,6 +34,7 @@ ylabel('brillo');
 xlim([40 60]);
 ylim([-1e+07 1e+07]);
 legend('28 pulsos');
+legend boxoff;
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 
 subplot(4, 1, 4);
@@ -41,6 +44,7 @@ ylabel('brillo');
 xlim([60 80]);
 ylim([-1e+07 1e+07]);
 legend('32 pulsos');
+legend boxoff;
 %%legend('Curva simulada','Curva teorica','location','NorthEastOutside');
 print -djpg imagenes/punto_2_G_zoom_cardiometro.jpg; %Octave
 grid minor;

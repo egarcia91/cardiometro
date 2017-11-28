@@ -152,9 +152,21 @@ freqz(b, a, 512, "half", frec_video);
 print -djpg imagenes/punto_10_d_diagrama_filtro_cardiometro.jpg; %Octave
 grid minor;
 
-
 impulso = zeros(1,190);
 impulso(1) = 16/(frec_video);
+
+respuestaImpulso = filter(b, a, impulso);
+respuestaImpulso(video_length) = 0;
+
+figure;
+plot( ejeXvideo, respuestaImpulso, 'b');
+xlabel('t [s]');
+ylabel('brillo');
+xlim([0 2]);
+title('Respuesta al Impulso');
+ylim([-0.06 0.15]);
+print -djpg imagenes/punto_10_respuesta_impulso_cardiometro.jpg; %Octave
+grid minor;
 
 %respuestaImpulso = zeros(1,video_length*4);
 respuestaImpulso = filtfilt(b, a, impulso);
@@ -173,8 +185,8 @@ plot( f, DFT_respuestaSobreMuestreo, 'g');
 plot( f, DFT_respuestaImpulso, 'k');
 xlabel('f [Hz]');
 ylabel('intensidad [modulo], Modulo [dB]');
-title('FFT del sobremuestreo y el filtro');
-legend('FFT senial sobremuestreada','FFT senial filtrada','Filtro');
+title('DFT del sobremuestreo y el filtro');
+legend('DFT senial sobremuestreada','DFT senial filtrada','Filtro');
 
 print -djpg imagenes/punto_10_d_fft_cardiometro.jpg; %Octave
 grid minor;

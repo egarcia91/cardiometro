@@ -28,12 +28,22 @@ grid minor;
 
 %f = linspace(-frec_video/2, frec_video/2, video_length);
 %
-%impulso = zeros(1,240);
-%impulso(1) = 1;
-%
-%respuestaImpulso = filtfilt(b, a, impulso);
-%respuestaImpulso(video_length) = 0;
-%
+impulso = zeros(1,240);
+impulso(1) = 1;
+
+respuestaImpulso = filter(b, a, impulso);
+respuestaImpulso(video_length) = 0;
+
+figure;
+plot( ejeXvideo, respuestaImpulso, 'b');
+xlabel('t [s]');
+ylabel('brillo');
+xlim([0 1]);
+title('Respuesta al Impulso');
+ylim([-0.6 0.6]);
+print -djpg imagenes/punto_4_respuesta_impulso_cardiometro.jpg; %Octave
+grid minor;
+
 %DFT_respuestaImpulso = 20*log(fftshift(abs(fft(respuestaImpulso))));
 %
 %figure;

@@ -16,7 +16,7 @@ subplot(2,1,1);
 plot( f, DFT_senial_verde, 'g');
 xlabel('f [Hz]');
 ylabel('intensidad [modulo]');
-title('FFT de la senial G');
+title('DFT de la senal Verde');
 ylim([0 2e+09]);
 
 subplot(2,1,2);
