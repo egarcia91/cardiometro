@@ -34,7 +34,10 @@ ejeXsobreMuestreoVideo = 0 : (t_video/4) : (((video_length)-(1/4))*(t_video));
 
 sobreMuestreo = upsample(final,4);
 
-[b, a] = butter( 7, 3.3*2/frec_video); %FiltroPasaBajoLimpia
+%[b, a] = butter( 7, 3.3*2/frec_video); %FiltroPasaBajoLimpia
+b = fir2(100, [0 0.25 0.25 1], [1 1 0 0]); %FiltroPasaBajoLimpia
+a = [1];
+
 
 respuestaSobreMuestreo = filtfilt(b, a, sobreMuestreo);
 
@@ -78,7 +81,7 @@ plot(ejeXsobreMuestreoVideo(picos),respuestaSobreMuestreo(picos)/max(respuestaSo
 xlim([60 90]);
 
 xlabel('t [s]');
-print -djpg imagenes/punto_11_cardiometro.jpg; %Octave
+print -djpg imagenes/punto_11_FIR_cardiometro.jpg; %Octave
 grid minor;
 
 tiempoIbi = [];
@@ -98,7 +101,7 @@ xlabel('t [s]');
 xlim([2 90]);
 ylim([0.5 1.2]);
 title('IBI');
-print -djpg imagenes/punto_11_ibi_cardiometro.jpg; %Octave
+print -djpg imagenes/punto_11_FIR_ibi_cardiometro.jpg; %Octave
 grid minor;
 
 tiempoTotal = ((video_length-1)*t_video)
@@ -106,9 +109,9 @@ picosTotal = length(picos)
 
 lpmTotal = round((picosTotal/tiempoTotal)*60)
 
-lpmTotal20 = round((length(find((tiempoIbi<=20) == 1))/20)*60)
-lpmTotal2040 = round((length(find((tiempoIbi>=20 & tiempoIbi<=40) == 1))/20)*60)
-lpmTotal4060 = round((length(find((tiempoIbi>=40 & tiempoIbi<=60) == 1))/20)*60)
-lpmTotal6080 = round((length(find((tiempoIbi>=60 & tiempoIbi<=80) == 1))/20)*60)
-lpmTotal8090 = round((length(find((tiempoIbi>=80 & tiempoIbi<=90) == 1))/10)*60)
+lpmTotal20 = round((length(find((tiempoIbi<=20) == 1))/20)*60);
+lpmTotal2040 = round((length(find((tiempoIbi>=20 & tiempoIbi<=40) == 1))/20)*60);
+lpmTotal4060 = round((length(find((tiempoIbi>=40 & tiempoIbi<=60) == 1))/20)*60);
+lpmTotal6080 = round((length(find((tiempoIbi>=60 & tiempoIbi<=80) == 1))/20)*60);
+lpmTotal8090 = round((length(find((tiempoIbi>=80 & tiempoIbi<=90) == 1))/10)*60);
 

@@ -26,8 +26,6 @@ freqz(b, a, 512, "half", frec_video);
 print -djpg imagenes/punto_4_diagrama_filtro_cardiometro.jpg; %Octave
 grid minor;
 
-%f = linspace(-frec_video/2, frec_video/2, video_length);
-%
 impulso = zeros(1,240);
 impulso(1) = 1;
 
@@ -44,6 +42,8 @@ ylim([-0.6 0.6]);
 print -djpg imagenes/punto_4_respuesta_impulso_cardiometro.jpg; %Octave
 grid minor;
 
+%f = linspace(-frec_video/2, frec_video/2, video_length);
+%
 %DFT_respuestaImpulso = 20*log(fftshift(abs(fft(respuestaImpulso))));
 %
 %figure;
@@ -53,7 +53,7 @@ grid minor;
 %ylabel('Modulo [dB]');
 %title('FFT del filtro');
 %
-%print -djpg imagenes/punto_4_respuesta_impulso_cardiometro.jpg; %Octave
+%print -djpg imagenes/punto_4_respuesta_frec_cardiometro.jpg; %Octave
 %grid minor;
 
 
